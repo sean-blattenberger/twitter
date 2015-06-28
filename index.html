@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="ng-learn">
+
+  <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script data-require="angular.js@1.4.1" data-semver="1.4.1" src="https://code.angularjs.org/1.4.1/angular.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/flexboxgrid/6.1.1/flexboxgrid.min.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="container" ng-controller="UserCtrl">
+      <div class="row">
+        <img ng-show="loggedin" src="{{afUser.avatar}}" height="36px" width="36px">
+        <button ng-hide="loggedin" ng-click="signin()" id="sign-in">
+        SIGN-IN
+        </button>
+        <button ng-show="loggedin" ng-click="signin()" id="sign-in">
+        Log-Out
+        </button>
+
+        <form class="form-horizontal" ng-show="authform">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>Log-in with Github <br> </legend>
+
+            <!-- Button -->
+            <div class="control-group">
+              <div class="controls">
+                <button ng-click="oauth()" id="singlebutton" name="singlebutton" class="btn btn-primary"><i class="fa fa-github-square"></i>Log In</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+        <div class="col-xs-offset-10 col-xs-9">
+          <div class="box"><input class="usersearch" ng-model="searchUsers" placeholder="Search for a user">
+          </div>
+        </div>
+        <div class="row start-xs">
+          <div class="col-xs-offset-1 col-xs-6">
+            <h3 ng-show="loggedin">{{activeUser.username}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row end-xs">
+      <div class="col-xs-6">
+        <div class="box">
+        </div>
+      </div>
+    </div>
+
+  <div class="row" id="tweet-title">
+    <h1>TWEET...TWEETER<img class="pull-right" src="Twitter_logo_blue.png" height="100px" width="130px"><img class= "hidden-xs pull-right" src="Twitter_logo_blue.png" height="100px" width="130px"><img class="hidden-xs pull-right" src="Twitter_logo_blue.png" height="100px" width="130px"></h1>
+  </div>
+    <h3 ng-hide="loggedin"> PLEASE SIGN IN ABOVE</h1>
+
+    <div ng-show="loggedin" ng-controller="TweetCtrl">
+    <div class='row'>
+      <div class='col-xs'>
+      <textarea ng-model="tweet" rows="5"></textarea>
+      </div>
+    </div>
+    <div>
+      <button ng-click='addTweet()' ng-disabled="isTweetMaxed()">
+        TWEET
+        </button>
+      <p ng-show='isTweetMaxed()' ng-class="{ red: isTweetMaxed() }">
+        {{tweetIsOver()}} characters over limit
+      </p>
+      <p ng-hide="isTweetMaxed()">
+        {{tweetRemainder()}} characters left
+      </p>
+      <ol>
+        <div ng-repeat='twit in tweetList' class='row' id="tweeet">
+          <div class="col-xs"><li class='col-xs-12 pull-right'>{{twit.tweet}}</div><div class="col-xs-offset-8 col-xs"><button class="follower end-sm" ng-click='follow()'><i class="fa fa-user-plus"></i></button><button class="follower pull-right" ng-click='follow()'><i class="fa fa-heart-o"></i></li></button></div>
+        </div>
+      </ol>
+    </div>
+</div>
+</body>
+
+</html>
