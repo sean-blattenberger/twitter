@@ -33,11 +33,16 @@ angular.module("ng-learn", ["firebase"])
   $scope.addTweet = function() {
     $scope.tweetList.$add({
       tweet: $scope.tweet,
-      user: $rootScope.activeUser.username
+      user: $rootScope.activeUser.username,
+      avatar: $rootScope.activeUser.cachedUserProfile["avatar_url"],
+      likes: []
     });
     console.log($scope.tweetList);
     $scope.tweet = "";
   }
+//  $scope.like = function() {
+//    $scope.tweetList
+//  }
 })
 .controller("UserCtrl", function($scope, User, $rootScope, $firebaseObject) {
 //  var ref = new Firebase("https://my-tweeterapp.firebaseio.com/");
@@ -53,13 +58,13 @@ angular.module("ng-learn", ["firebase"])
       $rootScope.activeUser = data.github;
       console.log(data.github);
       $rootScope.fbUser = $rootScope.fbRef.child('users/' + data.github.username);
-
       console.log($rootScope.fbUser);
       $rootScope.afUser = $firebaseObject($rootScope.fbUser);
       console.log($rootScope.afUser);
       $rootScope.fbUser.set({
         user: $rootScope.activeUser.username,
         avatar: $rootScope.activeUser.cachedUserProfile["avatar_url"],
+        followers: []
       });
     }else{
       $rootScope.activeUser = null;

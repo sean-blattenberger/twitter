@@ -100,6 +100,7 @@ img {
   height: 35px;
   padding-top: 0;
   padding-bottom: 0;
+  margin-left: 30px;
 }
 #tweeet {
   border:  20px outset white;
@@ -116,4 +117,13 @@ img {
   top: 0;
   position: absolute;
   font-family: 'Abel', sans-serif;
+}
+#buttondiv {
+  border-left: 1px solid darkgray;
+  border-left-width: thick;
+}
+#namepic {
+  border-right: 1px solid darkgray;
+  border-right-width: thick;
+  padding-right: 100px;
 }

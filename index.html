@@ -79,7 +79,12 @@
       </p>
       <ol>
         <div ng-repeat='twit in tweetList' class='row' id="tweeet">
-          <div class="col-xs"><li class='col-xs-12 pull-right'>{{twit.tweet}}</div><div class="col-xs-offset-8 col-xs"><button class="follower end-sm" ng-click='follow()'><i class="fa fa-user-plus"></i></button><button class="follower pull-right" ng-click='follow()'><i class="fa fa-heart-o"></i></li></button></div>
+
+          <div id="namepic" class="col-xs"><li><img src="{{twit.avatar}}" height="36px" width="36px"><br>{{twit.user}}</div>
+
+          <div class="col-xs col-xs-offset-2"><h3>{{twit.tweet}}</h3></div>
+
+          <div id="buttondiv" class="col-xs-offset-3 col-xs"><button class="follower end-sm" ng-click='follow()'><i class="fa fa-user-plus"></i></button><button class="follower pull-right" ng-click='like()'><i class="fa fa-heart-o"></i></li></button></div>
         </div>
       </ol>
     </div>
