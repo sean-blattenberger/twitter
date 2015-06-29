@@ -13,7 +13,7 @@ angular.module("ng-learn", ["firebase"])
   $scope.username = "";
   $scope.tweetList = ["Fake tweet 1", "Fake tweet 2", "Fake tweet 3"];
   $scope.tweetList = $firebaseArray($rootScope.fbRef.child('tweets'));
-  console.log($scope.tweetList);
+//  console.log($scope.tweetList);
 //  $scope.tweeters = [];
 //  $scope.addUser = function (){
 //    $scope.tweeters.push( { name: $scope.username, pass: $scope.password });
@@ -37,12 +37,16 @@ angular.module("ng-learn", ["firebase"])
       avatar: $rootScope.activeUser.cachedUserProfile["avatar_url"],
       likes: []
     });
-    console.log($scope.tweetList);
     $scope.tweet = "";
   }
-//  $scope.like = function() {
-//    $scope.tweetList
-//  }
+  $scope.like = function(key) {
+//    console.log($scope.tweetList[key]);
+    $scope.thistweet = $scope.tweetList[key];
+    console.log($scope.tweetList[key]);
+    $scope.tweetList[key].likes = $rootScope.activeUser.username;
+    console.log($scope.tweetList[key]);
+    $scope.tweetList.$save(key);
+  }
 })
 .controller("UserCtrl", function($scope, User, $rootScope, $firebaseObject) {
 //  var ref = new Firebase("https://my-tweeterapp.firebaseio.com/");
@@ -54,13 +58,13 @@ angular.module("ng-learn", ["firebase"])
   $scope.afAuth.$onAuth(function(data){
     if(data){
       $rootScope.loggedin = "true";
-      console.log(data);
+//      console.log(data);
       $rootScope.activeUser = data.github;
-      console.log(data.github);
+//      console.log(data.github);
       $rootScope.fbUser = $rootScope.fbRef.child('users/' + data.github.username);
-      console.log($rootScope.fbUser);
+//      console.log($rootScope.fbUser);
       $rootScope.afUser = $firebaseObject($rootScope.fbUser);
-      console.log($rootScope.afUser);
+//      console.log($rootScope.afUser);
       $rootScope.fbUser.set({
         user: $rootScope.activeUser.username,
         avatar: $rootScope.activeUser.cachedUserProfile["avatar_url"],
